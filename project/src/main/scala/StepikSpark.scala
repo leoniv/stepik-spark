@@ -9,7 +9,8 @@ object StepikSpark {
     val spark = "3.3.2"
   }
   object Libs {
-    val spark = "org.apache.spark" %% "spark-sql" % Version.spark
+    val sparkCore = "org.apache.spark" %% "spark-core" % Version.spark
+    val sparkSql = "org.apache.spark" %% "spark-sql" % Version.spark
   }
 
   object Keys {
