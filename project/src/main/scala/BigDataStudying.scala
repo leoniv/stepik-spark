@@ -12,7 +12,6 @@ object BigDataStudying {
   object Libs {
     val sparkCore = "org.apache.spark" %% "spark-core" % Version.spark
     val sparkSql = "org.apache.spark" %% "spark-sql" % Version.spark
-    val hadoopCore = "org.apache.hadoop" % "hadoop-core" % Version.hadoop
     val hadoopClient = "org.apache.hadoop" % "hadoop-client" % Version.hadoop
   }
 
@@ -20,7 +19,7 @@ object BigDataStudying {
     val organizeImports = taskKey[Unit]("Organize imports")
   }
 
-  val scalacOptions = Seq(
+  val scalacOptions0 = Seq(
     "-deprecation", // Emit warning and location for usages of deprecated APIs.
     "-encoding",
     "utf-8", // Specify character encoding used by source files.
@@ -39,23 +38,23 @@ object BigDataStudying {
     "-Ywarn-extra-implicit", // Warn when more than one implicit parameter section is defined.
   )
 
-
   val scalacOptionsConsole = {
     val optionsNotUsedInConsole = Seq("-Xfatal-warnings", "-Xlint")
-    scalacOptions.filterNot(a => optionsNotUsedInConsole.exists(_ == a))
+    scalacOptions0.filterNot(a => optionsNotUsedInConsole.exists(_ == a))
   }
 
-  val hadoopProject = project.in(file("hadoop")).settings(
+  val hadoopProject = project
+    .in(file("hadoop"))
+    .settings(
+      fork := true,
       libraryDependencies ++= Seq(
-        BigDataStudying.Libs.hadoopCore,
-        BigDataStudying.Libs.hadoopClient,
-      ),
-  )
+        BigDataStudying.Libs.hadoopClient
+      )
+    )
 
   val sparkProject = project
     .in(file("spark"))
     .settings(
-// Fix cannot access class sun.nio.ch.DirectBuffer
       javaOptions += "--add-opens=java.base/sun.nio.ch=ALL-UNNAMED",
       fork := true,
       libraryDependencies ++= Seq(

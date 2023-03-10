@@ -7,9 +7,9 @@ version := "1.0"
 
 scalaVersion := BigDataStudying.Version.scalaVersion
 
-scalacOptions := BigDataStudying.scalacOptions
-Compile / console / scalacOptions := BigDataStudying.scalacOptionsConsole
-Test / console / scalacOptions := BigDataStudying.scalacOptionsConsole
+ThisBuild / scalacOptions := BigDataStudying.scalacOptions0
+ThisBuild /Compile / console / scalacOptions := BigDataStudying.scalacOptionsConsole
+ThisBuild / Test / console / scalacOptions := BigDataStudying.scalacOptionsConsole
 
 lazy val sparkProject = BigDataStudying.sparkProject
 lazy val hadoopProject = BigDataStudying.hadoopProject

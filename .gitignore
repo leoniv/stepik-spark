@@ -33,3 +33,4 @@ project/.gnupg
 out
 .vscode/
 .vim/
+tmp/
