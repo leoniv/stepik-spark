@@ -1,28 +1,15 @@
-import stepik.spark.project.StepikSpark
-import StepikSpark.Keys._
+import bigdata.studying.project.BigDataStudying
+import BigDataStudying.Keys._
 
-name := "Stepik Spark"
+name := "Big data studying"
 
 version := "1.0"
 
-scalaVersion := StepikSpark.Version.scalaVersion
+scalaVersion := BigDataStudying.Version.scalaVersion
 
-scalacOptions := StepikSpark.scalacOptions
-Compile / console / scalacOptions := StepikSpark.scalacOptionsConsole
-Test / console / scalacOptions := StepikSpark.scalacOptionsConsole
+scalacOptions := BigDataStudying.scalacOptions
+Compile / console / scalacOptions := BigDataStudying.scalacOptionsConsole
+Test / console / scalacOptions := BigDataStudying.scalacOptionsConsole
 
-libraryDependencies ++= Seq(
-  StepikSpark.Libs.sparkSql,
-  StepikSpark.Libs.sparkCore
-)
-
-// Fix cannot access class sun.nio.ch.DirectBuffer
-javaOptions += "--add-opens=java.base/sun.nio.ch=ALL-UNNAMED"
-fork := true
-
-// Organize imports
-scalafixDependencies += "com.github.liancheng" %% "organize-imports" % "0.5.0"
-scalafixConfig := Some(baseDirectory.value / ".scalafix.conf")
-semanticdbEnabled := true
-semanticdbVersion := scalafixSemanticdb.revision
-organizeImports := scalafixAll.toTask(" OrganizeImports").value
+lazy val sparkProject = BigDataStudying.sparkProject
+lazy val hadoopProject = BigDataStudying.hadoopProject

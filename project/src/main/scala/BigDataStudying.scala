@@ -1,16 +1,19 @@
-package stepik.spark.project
+package bigdata.studying.project
 
 import sbt._
 import sbt.Keys._
 
-object StepikSpark {
+object BigDataStudying {
   object Version {
     val scalaVersion = "2.13.8"
     val spark = "3.3.2"
+    val hadoop = "3.3.4"
   }
   object Libs {
     val sparkCore = "org.apache.spark" %% "spark-core" % Version.spark
     val sparkSql = "org.apache.spark" %% "spark-sql" % Version.spark
+    val hadoopCore = "org.apache.hadoop" % "hadoop-core" % Version.hadoop
+    val hadoopClient = "org.apache.hadoop" % "hadoop-client" % Version.hadoop
   }
 
   object Keys {
@@ -36,8 +39,28 @@ object StepikSpark {
     "-Ywarn-extra-implicit", // Warn when more than one implicit parameter section is defined.
   )
 
+
   val scalacOptionsConsole = {
     val optionsNotUsedInConsole = Seq("-Xfatal-warnings", "-Xlint")
     scalacOptions.filterNot(a => optionsNotUsedInConsole.exists(_ == a))
   }
+
+  val hadoopProject = project.in(file("hadoop")).settings(
+      libraryDependencies ++= Seq(
+        BigDataStudying.Libs.hadoopCore,
+        BigDataStudying.Libs.hadoopClient,
+      ),
+  )
+
+  val sparkProject = project
+    .in(file("spark"))
+    .settings(
+// Fix cannot access class sun.nio.ch.DirectBuffer
+      javaOptions += "--add-opens=java.base/sun.nio.ch=ALL-UNNAMED",
+      fork := true,
+      libraryDependencies ++= Seq(
+        BigDataStudying.Libs.sparkSql,
+        BigDataStudying.Libs.sparkCore,
+      ),
+    )
 }
