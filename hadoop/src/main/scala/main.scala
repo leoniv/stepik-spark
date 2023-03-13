@@ -11,6 +11,13 @@ import org.apache.hadoop.mapreduce.lib.output.{
 }
 import scala.annotation.nowarn
 
+// It expects input like:
+//NASD,gog,1,0,5,99,190.1,1
+//NASD,kek,1,5,99,10.1,1
+//NASD,foo,1,0,5,99,19.1,1
+//NASD,gog,1,0,5,99,19.1,1
+//NASD,kek,1,0,5,99,160.1,1
+//NASD,foo,1,0,5,99,32.1,1
 object main {
   def main(args: Array[String]): Unit = {
     @nowarn("cat=deprecation")
